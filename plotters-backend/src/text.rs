@@ -121,6 +121,8 @@ pub enum FontTransform {
     Rotate180,
     /// Rotating the text 270 degree clockwise
     Rotate270,
+    /// Rotating the text to an arbitrary degree clockwise
+    RotateAngle(f32),
 }
 
 impl FontTransform {
@@ -135,6 +137,10 @@ impl FontTransform {
             FontTransform::Rotate90 => (-y, x),
             FontTransform::Rotate180 => (-x, -y),
             FontTransform::Rotate270 => (y, -x),
+            FontTransform::RotateAngle(angle) => (
+                ((x as f32) * angle.cos()).round() as i32,
+                ((y as f32) * angle.sin()).round() as i32,
+            ),
         }
     }
 }
