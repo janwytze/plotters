@@ -213,8 +213,8 @@ pub trait BackendTextStyle {
         FontStyle::Normal
     }
 
-    fn anchor(&self) -> text_anchor::Pos {
-        text_anchor::Pos::default()
+    fn anchor(&self) -> Option<text_anchor::Pos> {
+        None
     }
 
     fn family(&self) -> FontFamily;

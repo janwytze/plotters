@@ -233,14 +233,16 @@ pub trait DrawingBackend: Sized {
             .layout_box(text)
             .map_err(|e| DrawingErrorKind::FontError(Box::new(e)))?;
         let ((min_x, min_y), (max_x, max_y)) = layout;
-        let width = max_x - min_x;
-        let height = max_y - min_y;
-        let dx = match style.anchor().h_pos {
+        let width = (max_x - min_x) as i32;
+        let height = (max_y - min_y) as i32;
+
+        let anchor = style.anchor().unwrap_or_default();
+        let dx = match anchor.h_pos {
             HPos::Left => 0,
             HPos::Right => -width,
             HPos::Center => -width / 2,
         };
-        let dy = match style.anchor().v_pos {
+        let dy = match anchor.v_pos {
             VPos::Top => 0,
             VPos::Center => -height / 2,
             VPos::Bottom => -height,
