@@ -573,10 +573,8 @@ impl<'a> DrawingBackend for SVGBackend<'a> {
                     .write_value(("rotate(270, ", x0, ", ", y0, ')'));
             }
             FontTransform::RotateAngle(deg) => {
-                attrs.push(("transform", format!("rotate({deg}, {x0}, {y0})")))
-            }
-            FontTransform::RotateAngle(deg) => {
-                attrs.push(("transform", format!("rotate({deg}, {x0}, {y0})")))
+                attrwriter.write_key("transform")
+                    .write_value(("rotate(", deg, ", ", x0, ", ", y0, ')'));
             }
             _ => {}
         }
